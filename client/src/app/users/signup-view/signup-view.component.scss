@@ -1,0 +1,19 @@
+.signup-view {
+    height: 100%;
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        margin: 0 auto;
+
+        .spinner-wrapper {
+            display: none;
+            justify-content: center;
+        }
+
+        .btn {
+            margin-top: .5rem;            
+        }
+    }
+}
