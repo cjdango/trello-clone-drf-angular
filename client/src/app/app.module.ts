@@ -8,11 +8,13 @@ import { AppComponent } from './app.component';
 import { UsersModule } from './users/users.module';
 import { MatModule } from './mat.module';
 import { BaseURLInterceptor } from './base-url.interceptor'
-import { HttpErrorInterceptor } from './http-error.interceptor'
+import { HttpErrorInterceptor } from './http-error.interceptor';
+import { AlertComponent } from './components/alert/alert.component'
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
