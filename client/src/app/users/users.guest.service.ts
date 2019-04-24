@@ -9,11 +9,17 @@ import { User } from './users.interface'
   providedIn: 'root'
 })
 export class GuestService {
-  private usersURL = 'users/create/';
+  private usersURL = 'users';
 
   constructor(private http: HttpClient) {}
 
+  login(creds: {email: string, password: string}): Observable<any>  {
+    const url = `${this.usersURL}/login/`
+    return this.http.post<any>(url, creds)
+  }
+
   createUser(user: User): Observable<any> {
-    return this.http.post<any>(this.usersURL, user)
+    const url = `${this.usersURL}/create/`
+    return this.http.post<any>(url, user)
   }
 }
