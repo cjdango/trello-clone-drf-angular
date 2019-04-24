@@ -22,3 +22,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.email}"
+
+
+class ResetPassToken(models.Model):
+    uid = models.CharField(max_length=256)
+    token = models.CharField(max_length=256)
