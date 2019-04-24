@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http'
+import { Router } from '@angular/router';
 
 import { mustMatch } from '../users.validators';
 import { GuestService } from '../users.guest.service'
+import { AlertService } from 'src/app/components/alert/alert.service';
 
 @Component({
   selector: 'app-signup-view',
@@ -38,7 +40,9 @@ export class SignupViewComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private guestService: GuestService
+    private guestService: GuestService,
+    private router: Router,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -57,6 +61,8 @@ export class SignupViewComponent implements OnInit {
         () => {
           this.submitted = false
           this.ngForm.resetForm()
+          this.router.navigateByUrl('/login')
+          this.alertService.error("Success, You can now login to your account");
         }, 
         (err) => {
           this.submitted = false
