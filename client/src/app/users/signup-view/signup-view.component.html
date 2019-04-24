@@ -48,6 +48,6 @@
 
     <div class="spinner-wrapper" [style.display]="!submitted ? 'none': 'inline-flex'"><mat-spinner [diameter]="25"></mat-spinner></div>
     <button mat-flat-button color="primary" type="submit" class="btn" [disabled]="submitted">Submit</button>
-    <a mat-stroked-button color="warm" class="btn login-link">Login</a>
+    <a mat-stroked-button color="warm" class="btn login-link" routerLink="/login">Login</a>
   </form>
 </div>
