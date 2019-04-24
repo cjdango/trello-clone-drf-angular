@@ -18,7 +18,7 @@ export class AlertService {
           this.keepAfterNavigationChange = false;
         } else {
           // clear alert
-          this.subject.next();
+          this.clearMessage();
         }
       }
     });
@@ -36,5 +36,9 @@ export class AlertService {
 
   getMessage(): Observable<any> {
     return this.subject.asObservable();
+  }
+
+  clearMessage(): void {
+    this.subject.next()
   }
 }
