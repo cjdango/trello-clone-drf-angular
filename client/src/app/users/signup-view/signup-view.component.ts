@@ -68,6 +68,10 @@ export class SignupViewComponent implements OnInit {
           this.submitted = false
           if (err instanceof HttpErrorResponse) {
             const validationErrors = err.error
+            const nonFieldErrs = validationErrors.non_field_errors
+            if (nonFieldErrs) {
+              this.alertService.error(nonFieldErrs[0])
+            }
 
             if (err.status === 400) {
               Object.keys(err.error).forEach(prop => {
