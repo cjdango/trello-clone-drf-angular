@@ -52,9 +52,10 @@ class UserAPI(ViewSet):
 
     def password_reset(self, *args, **kwargs):
         """Used for requesting password reset"""
+        client_addr = self.request.META['REMOTE_ADDR']
         serializer = PasswordResetSerializer(data=self.request.data)
         if serializer.is_valid():
-            serializer.save(request=self.request)
+            serializer.save(request=self.request, domain_override=f'{client_addr}:4200')
             return Response(status=200)
         return Response(serializer.errors, status=400)
    
