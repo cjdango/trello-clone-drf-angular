@@ -22,4 +22,9 @@ export class GuestService {
     const url = `${this.usersURL}/create/`
     return this.http.post<any>(url, user)
   }
+
+  requestPasswordReset(payload: {email: string}): Observable<any> {
+    const url = `${this.usersURL}/password_reset/`
+    return this.http.post<any>(url, payload)
+  }
 }
