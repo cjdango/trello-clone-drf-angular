@@ -3,11 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { SignupViewComponent } from './users/signup-view/signup-view.component';
 import { LoginViewComponent } from './users/login-view/login-view.component';
+import { PasswordResetViewComponent } from './users/password-reset-view/password-reset-view.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/signup', pathMatch: 'full' },
   { path: 'signup', component: SignupViewComponent },
-  { path: 'login', component: LoginViewComponent }
+  { path: 'login', component: LoginViewComponent },
+  { path: 'forgot-password', component: PasswordResetViewComponent }
 ];
 
 @NgModule({
