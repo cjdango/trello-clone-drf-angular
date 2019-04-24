@@ -14,9 +14,6 @@ from rest_framework import serializers
 from .models import User, ResetPassToken
 
 
-
-INTERNAL_RESET_SESSION_TOKEN = '_password_reset_token'
-
 class UserAuthSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
