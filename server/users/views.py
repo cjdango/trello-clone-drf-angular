@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from rest_framework.authtoken.models import Token
 
-from .models import User
+from .models import User, ResetPassToken
 from .serializers import (
     UserSerializer,
     UserAuthSerializer,
@@ -64,12 +64,16 @@ class UserAPI(ViewSet):
 
         user = get_user_by_uidb64(kwargs['uidb64'])
         if user is not None:
-            session_token = self.request.session.get(INTERNAL_RESET_SESSION_TOKEN)
-            if default_token_generator.check_token(user, session_token):
-                serializer = SetPasswordSerializer(data=self.request.data, user=user)
-                if serializer.is_valid():
-                    serializer.save()
-                    del self.request.session[INTERNAL_RESET_SESSION_TOKEN]
-                    return Response(status=200)
-                return Response(serializer.errors, status=400)
-        return Response(status=400)
+            try:
+                reset_token_obj = ResetPassToken.objects.get(uid=kwargs['uidb64'], token=kwargs['token'])
+                reset_token = reset_token_obj.token
+                if default_token_generator.check_token(user, reset_token):
+                    serializer = SetPasswordSerializer(data=self.request.data, user=user)
+                    if serializer.is_valid():
+                        serializer.save()
+                        reset_token_obj.delete()
+                        return Response(status=200)
+                    return Response(serializer.errors, status=400)
+            except ResetPassToken.DoesNotExist:
+                pass
+        return Response({'non_field_errors': ['Sorry, something went wrong. Try requesting a new reset link.']}, status=400)

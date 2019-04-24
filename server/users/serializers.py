@@ -11,7 +11,7 @@ from django.utils.http import urlsafe_base64_encode
 
 from rest_framework import serializers
 
-from .models import User
+from .models import User, ResetPassToken
 
 
 
@@ -122,7 +122,7 @@ class PasswordResetSerializer(serializers.Serializer):
                 **(extra_email_context or {}),
             }
 
-            request.session[INTERNAL_RESET_SESSION_TOKEN] = context['token']
+            ResetPassToken.objects.get_or_create(uid=context['uid'], token=context['token'])
 
             self.send_mail(
                 subject_template_name, email_template_name, context, from_email,
