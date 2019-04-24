@@ -1,5 +1,5 @@
 <div class="view users-view signup-view">
-  <form [formGroup]="signupForm" class="form-group" (ngSubmit)="onSubmit()">
+  <form [formGroup]="signupForm" class="form-group" (ngSubmit)="onSubmit()" #f="ngForm">
     <h1>Create an account.</h1>
     <mat-form-field>
       <input matInput placeholder="Firstname" formControlName="first_name" required minlength="4">

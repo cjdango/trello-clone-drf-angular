@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http'
 
 import { mustMatch } from '../users.validators';
@@ -11,6 +11,8 @@ import { GuestService } from '../users.guest.service'
   styleUrls: ['./signup-view.component.scss']
 })
 export class SignupViewComponent implements OnInit {
+  @ViewChild('f') ngForm: FormGroupDirective;
+
   submitted = false
   signupForm = this.fb.group({
     first_name: ['', [
@@ -54,6 +56,7 @@ export class SignupViewComponent implements OnInit {
       .subscribe(
         () => {
           this.submitted = false
+          this.ngForm.resetForm()
         }, 
         (err) => {
           this.submitted = false
