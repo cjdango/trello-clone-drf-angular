@@ -4,6 +4,7 @@ from django.contrib.auth.tokens import default_token_generator
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import AllowAny
 
 from .models import User, ResetPassToken
 from .serializers import (
@@ -18,6 +19,7 @@ INTERNAL_RESET_SESSION_TOKEN = '_password_reset_token'
 
 class GuestAPI(ViewSet):
     """Guest API"""
+    permission_classes = (AllowAny,)
 
     def list(self, *args, **kwargs):
         """lists all users
@@ -49,6 +51,7 @@ class GuestAPI(ViewSet):
 
 class UserAPI(ViewSet):
     """User API"""
+    permission_classes = (AllowAny,)
 
     def password_reset(self, *args, **kwargs):
         """Used for requesting password reset"""
